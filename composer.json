@@ -1,0 +1,23 @@
+{
+    "name": "rmakhambetov/wisebits-test",
+    "description": "wisebits test project",
+    "type": "project",
+    "license": "mit",
+    "autoload": {
+        "psr-4": {
+            "Rmakhambetov\\WisebitsTest\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Roman Makhambetov",
+            "email": "rmakhambetov@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^7.4 || 8.*",
+        "psr/container": "^1.0",
+        "psr/log": "^3.0"
+    }
+}
