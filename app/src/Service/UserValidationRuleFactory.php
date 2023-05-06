@@ -45,8 +45,7 @@ final class UserValidationRuleFactory
                     [
                     new NotNull(),
                     new Unique($this->user->getId(), 'email', $this->userRepository),
-                    new ForbiddenValue($this->blackListDomainRepository),
-                    new Email(),
+                    new Email($this->blackListDomainRepository),
                     ]
                 ),
                 ]

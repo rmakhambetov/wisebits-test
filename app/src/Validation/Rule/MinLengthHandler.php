@@ -25,7 +25,7 @@ class MinLengthHandler implements RuleHandler
             return;
         }
 
-        if ($value >= $rule->minLength) {
+        if (strlen($value) >= $rule->minLength) {
             return;
         }
 
@@ -34,7 +34,7 @@ class MinLengthHandler implements RuleHandler
             'Len of {value} must be greater or equals than {len}',
             [
             'value' => $value,
-            'len' => $rule->minLength,
+            'min_len' => $rule->minLength,
             ]
         );
     }

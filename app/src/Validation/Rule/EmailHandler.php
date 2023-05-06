@@ -13,7 +13,7 @@ final class EmailHandler implements RuleHandler
 
     public static function rule(): string
     {
-        return ForbiddenValue::class;
+        return Email::class;
     }
 
     /**
@@ -25,14 +25,21 @@ final class EmailHandler implements RuleHandler
             return;
         }
 
-        if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
-            return;
-        }
-
-        yield new Error(
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+          yield new Error(
             self::INVALID_EMAIL,
             'Value {value} is invalid email address',
             ['value' => $value]
-        );
+          );
+        }
+
+        [, $domain] = explode('@', $value);
+        if ($rule->getRepository()->isBlacklisted((string)$domain)) {
+          yield new Error(
+            self::INVALID_EMAIL,
+            'Email {value} has forbidden domain',
+            ['value' => $value]
+          );
+        }
     }
 }

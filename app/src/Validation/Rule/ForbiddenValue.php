@@ -2,7 +2,7 @@
 
 namespace App\Validation\Rule;
 
-use Repository\BlackListRepository;
+use App\Repository\BlackListRepository;
 use App\Validation\Rule;
 
 final class ForbiddenValue implements Rule

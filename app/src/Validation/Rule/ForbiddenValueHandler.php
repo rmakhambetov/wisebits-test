@@ -25,7 +25,7 @@ final class ForbiddenValueHandler implements RuleHandler
             return;
         }
 
-        if ($rule->getRepository()->isBlacklisted($value)) {
+        if (!$rule->getRepository()->isBlacklisted($value)) {
             return;
         }
 

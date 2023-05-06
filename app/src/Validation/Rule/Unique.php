@@ -2,7 +2,7 @@
 
 namespace App\Validation\Rule;
 
-use Repository\UniqueAbleRepository;
+use App\Repository\UniqueAbleRepository;
 use App\Validation\Rule;
 
 final class Unique implements Rule
