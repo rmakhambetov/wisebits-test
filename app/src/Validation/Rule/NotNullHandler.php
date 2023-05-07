@@ -13,7 +13,7 @@ final class NotNullHandler implements RuleHandler
 
     public static function rule(): string
     {
-        return MinLength::class;
+        return NotNull::class;
     }
 
     /**

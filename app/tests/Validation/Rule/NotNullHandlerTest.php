@@ -14,20 +14,20 @@ final class NotNullHandlerTest extends TestCase
 {
     public function testNull(): void
     {
-      $validator = $this->createValidator();
-      $handler = new NotNullHandler();
-      $rule = new NotNull();
+        $validator = $this->createValidator();
+        $handler = new NotNullHandler();
+        $rule = new NotNull();
 
-      $errors = $handler->handle(null, $rule, $validator);
-      self::assertEquals(
-        [
-          new Error(
-            'not_null',
-            'Value must not be a null'
-          ),
-        ],
-        iterator_to_array($errors)
-      );
+        $errors = $handler->handle(null, $rule, $validator);
+        self::assertEquals(
+            [
+            new Error(
+                'not_null',
+                'Value must not be a null'
+            ),
+            ],
+            iterator_to_array($errors)
+        );
     }
 
   /**
@@ -36,12 +36,12 @@ final class NotNullHandlerTest extends TestCase
    */
     public function testNotNull(mixed $value): void
     {
-      $validator = $this->createValidator();
-      $handler = new NotNullHandler();
-      $rule = new NotNull();
+        $validator = $this->createValidator();
+        $handler = new NotNullHandler();
+        $rule = new NotNull();
 
-      $errors = $handler->handle($value, $rule, $validator);
-      self::assertSame([], iterator_to_array($errors));
+        $errors = $handler->handle($value, $rule, $validator);
+        self::assertSame([], iterator_to_array($errors));
     }
 
     private function createValidator(): Validator
@@ -58,11 +58,11 @@ final class NotNullHandlerTest extends TestCase
   /**
    * @psalm-return \Generator<int, array{mixed}>
    */
-  public static function provideValidType(): \Generator
-  {
-    yield ['test'];
-    yield ['0'];
-    yield [0];
-    yield [''];
-  }
+    public static function provideValidType(): \Generator
+    {
+        yield ['test'];
+        yield ['0'];
+        yield [0];
+        yield [''];
+    }
 }

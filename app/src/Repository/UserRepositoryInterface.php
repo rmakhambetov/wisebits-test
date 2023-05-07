@@ -12,7 +12,7 @@ interface UserRepositoryInterface
 
     public function update(User $user): bool;
 
-    public function create(User $user): int;
+    public function create(User $user): bool;
 
     public function softDelete(User $user): bool;
 }

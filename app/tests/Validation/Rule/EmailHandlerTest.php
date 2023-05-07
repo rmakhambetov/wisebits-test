@@ -19,12 +19,12 @@ final class EmailHandlerTest extends TestCase
      */
     public function testValid(mixed $value): void
     {
-      $validator = $this->createValidator();
-      $handler = new EmailHandler();
-      $rule = new Email(new SimpleBlacklistRepository());
+        $validator = $this->createValidator();
+        $handler = new EmailHandler();
+        $rule = new Email(new SimpleBlacklistRepository());
 
-      $errors = $handler->handle($value, $rule, $validator);
-      self::assertSame([], iterator_to_array($errors));
+        $errors = $handler->handle($value, $rule, $validator);
+        self::assertSame([], iterator_to_array($errors));
     }
 
     /**
@@ -34,20 +34,21 @@ final class EmailHandlerTest extends TestCase
      */
     public function testInvalidType(mixed $value, mixed $error): void
     {
-      $validator = $this->createValidator();
-      $handler = new EmailHandler();
-      $rule = new Email(new SimpleBlacklistRepository());
+        $validator = $this->createValidator();
+        $handler = new EmailHandler();
+        $rule = new Email(new SimpleBlacklistRepository());
 
-      $errors = $handler->handle($value, $rule, $validator);
-      self::assertEquals(
-        [
-        new Error(
-          'invalid_email',
-          $error,
-          ['value' => $value]
-        )
-        ],
-        iterator_to_array($errors));
+        $errors = $handler->handle($value, $rule, $validator);
+        self::assertEquals(
+            [
+            new Error(
+                'invalid_email',
+                $error,
+                ['value' => $value]
+            )
+            ],
+            iterator_to_array($errors)
+        );
     }
 
     private function createValidator(): Validator
@@ -64,21 +65,21 @@ final class EmailHandlerTest extends TestCase
   /**
    * @psalm-return \Generator<int, array{mixed}>
    */
-  public static function provideValidType(): \Generator
-  {
-    yield ['test1@test.ru'];
-    yield ['test2@test.ru'];
-    yield ['test3@test.ru'];
-  }
+    public static function provideValidType(): \Generator
+    {
+        yield ['test1@test.ru'];
+        yield ['test2@test.ru'];
+        yield ['test3@test.ru'];
+    }
 
   /**
    * @psalm-return \Generator<int, array{mixed}>
    */
-  public static function provideInvalidType(): \Generator
-  {
-    yield ['test1@test', 'Value {value} is invalid email address'];
-    yield ['test2@.ru', 'Value {value} is invalid email address'];
-    yield ['@test.ru', 'Value {value} is invalid email address'];
-    yield ['test1@domain.org', 'Email {value} has forbidden domain'];
-  }
+    public static function provideInvalidType(): \Generator
+    {
+        yield ['test1@test', 'Value {value} is invalid email address'];
+        yield ['test2@.ru', 'Value {value} is invalid email address'];
+        yield ['@test.ru', 'Value {value} is invalid email address'];
+        yield ['test1@domain.org', 'Email {value} has forbidden domain'];
+    }
 }

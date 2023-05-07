@@ -18,12 +18,12 @@ final class AlphaNumericHandlerTest extends TestCase
      */
     public function testValid(mixed $value): void
     {
-      $validator = $this->createValidator();
-      $handler = new AlphaNumericHandler();
-      $rule = new AlphaNumeric();
+        $validator = $this->createValidator();
+        $handler = new AlphaNumericHandler();
+        $rule = new AlphaNumeric();
 
-      $errors = $handler->handle($value, $rule, $validator);
-      self::assertSame([], iterator_to_array($errors));
+        $errors = $handler->handle($value, $rule, $validator);
+        self::assertSame([], iterator_to_array($errors));
     }
 
     /**
@@ -32,20 +32,21 @@ final class AlphaNumericHandlerTest extends TestCase
      */
     public function testInvalidType(mixed $value): void
     {
-      $validator = $this->createValidator();
-      $handler = new AlphaNumericHandler();
-      $rule = new AlphaNumeric();
+        $validator = $this->createValidator();
+        $handler = new AlphaNumericHandler();
+        $rule = new AlphaNumeric();
 
-      $errors = $handler->handle($value, $rule, $validator);
-      self::assertEquals(
-        [
-        new Error(
-          'non_alphanumeric',
-          'Value {value} must be alphanumeric',
-          ['value' => $value]
-        )
-        ],
-        iterator_to_array($errors));
+        $errors = $handler->handle($value, $rule, $validator);
+        self::assertEquals(
+            [
+            new Error(
+                'non_alphanumeric',
+                'Value {value} must be alphanumeric',
+                ['value' => $value]
+            )
+            ],
+            iterator_to_array($errors)
+        );
     }
 
     private function createValidator(): Validator
@@ -62,20 +63,20 @@ final class AlphaNumericHandlerTest extends TestCase
   /**
    * @psalm-return \Generator<int, array{mixed}>
    */
-  public static function provideValidType(): \Generator
-  {
-    yield ['asd'];
-    yield ['123'];
-    yield ['ads123'];
-  }
+    public static function provideValidType(): \Generator
+    {
+        yield ['asd'];
+        yield ['123'];
+        yield ['ads123'];
+    }
 
   /**
    * @psalm-return \Generator<int, array{mixed}>
    */
-  public static function provideInvalidType(): \Generator
-  {
-    yield ['asd-'];
-    yield ['asd-1'];
-    yield ['asd.1'];
-  }
+    public static function provideInvalidType(): \Generator
+    {
+        yield ['asd-'];
+        yield ['asd-1'];
+        yield ['asd.1'];
+    }
 }

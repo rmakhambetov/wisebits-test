@@ -2,7 +2,7 @@
 
 namespace Tests\Validation;
 
-final class Person
+final class User
 {
     public string $name;
 

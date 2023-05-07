@@ -26,20 +26,20 @@ final class EmailHandler implements RuleHandler
         }
 
         if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
-          yield new Error(
-            self::INVALID_EMAIL,
-            'Value {value} is invalid email address',
-            ['value' => $value]
-          );
+            yield new Error(
+                self::INVALID_EMAIL,
+                'Value {value} is invalid email address',
+                ['value' => $value]
+            );
         }
 
         [, $domain] = explode('@', $value);
         if ($rule->getRepository()->isBlacklisted((string)$domain)) {
-          yield new Error(
-            self::INVALID_EMAIL,
-            'Email {value} has forbidden domain',
-            ['value' => $value]
-          );
+            yield new Error(
+                self::INVALID_EMAIL,
+                'Email {value} has forbidden domain',
+                ['value' => $value]
+            );
         }
     }
 }

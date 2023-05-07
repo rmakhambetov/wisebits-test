@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-use App\Entity\User;
 use App\Repository\BlackListRepository;
 use App\Repository\UniqueAbleRepository;
 use App\Validation\Rule;
@@ -16,17 +15,17 @@ use App\Validation\Rule\NotNull;
 use App\Validation\Rule\ObjectProperties;
 use App\Validation\Rule\Unique;
 
-final class UserValidationRuleFactory
+final class UserValidationRuleProvider
 {
     public function __construct(
-        private readonly User $user,
+        private readonly ?int $userId,
         private UniqueAbleRepository $userRepository,
         private BlackListRepository $blackListNameRepository,
         private BlackListRepository $blackListDomainRepository
     ) {
     }
 
-    public function createSaveRules(): Rule
+    public function getSaveRules(): Rule
     {
         return new All(
             [
@@ -35,7 +34,7 @@ final class UserValidationRuleFactory
                 'name'  => new Any(
                     [
                     new NotNull(),
-                    new Unique($this->user->getId(), 'name', $this->userRepository),
+                    new Unique($this->userId, 'name', $this->userRepository),
                     new ForbiddenValue($this->blackListNameRepository),
                     new AlphaNumeric(),
                     new MinLength(8),
@@ -44,7 +43,7 @@ final class UserValidationRuleFactory
                 'email' => new Any(
                     [
                     new NotNull(),
-                    new Unique($this->user->getId(), 'email', $this->userRepository),
+                    new Unique($this->userId, 'email', $this->userRepository),
                     new Email($this->blackListDomainRepository),
                     ]
                 ),

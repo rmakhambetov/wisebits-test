@@ -8,7 +8,7 @@ use App\Validation\Rule\ObjectPropertiesHandler;
 use App\Validation\Error;
 use App\Validation\RuleHandlerRegistry\InMemoryRuleHandlerRegistry;
 use App\Validation\Validator;
-use Tests\Validation\Person;
+use Tests\Validation\User;
 use Tests\Validation\Stubs\Invalid;
 use Tests\Validation\Stubs\InvalidHandler;
 use Tests\Validation\Stubs\Valid;
@@ -57,9 +57,9 @@ final class ObjectPropertiesHandlerTest extends TestCase
             'name' => new Invalid(),
             ]
         );
-        $person = new Person();
+        $user = new User();
 
-        $errors = $handler->handle($person, $rule, $validator);
+        $errors = $handler->handle($user, $rule, $validator);
 
         self::assertEquals(
             [
@@ -93,7 +93,7 @@ final class ObjectPropertiesHandlerTest extends TestCase
             'lastname' => new Invalid(),
             ]
         );
-        $person = new Person();
+        $person = new User();
 
         $errors = $handler->handle($person, $rule, $validator);
 
@@ -104,7 +104,7 @@ final class ObjectPropertiesHandlerTest extends TestCase
                 'Property {property} does not exist in class {class}.',
                 [
                 'property' => 'lastname',
-                'class' => 'Tests\Validation\Person',
+                'class' => 'Tests\Validation\User',
                 ]
             ),
             ],

@@ -11,7 +11,7 @@ final class UserService
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,
-        private UserValidationRuleFactory $validationRuleFactory,
+        private UserValidationRuleProvider $validationRuleProvider,
         private Validator $validator,
         private LoggerInterface $logger
     ) {
@@ -32,13 +32,13 @@ final class UserService
 
     public function save(User $user): bool
     {
-        $errors = $this->validator->validate($user, $this->validationRuleFactory->createSaveRules());
+        $errors = $this->validator->validate($user, $this->validationRuleProvider->getSaveRules());
 
         if (!empty($errors)) {
             throw new ValidationException($errors);
         }
 
-        $result = $user->getId()
+        $result = $user->id
         ? $this->userRepository->update($user)
         : $this->userRepository->create($user);
 
